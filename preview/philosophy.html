@@ -139,15 +139,17 @@
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Press &amp; Fold</a>
-    <ul class="nav-links">
-      <li><a href="journal.html">Journal</a></li>
-      <li><a href="philosophy.html" class="active">Philosophy</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="journal.html#shop">Shop</a></li>
-    </ul>
-  </nav>
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html").then(r => r.text()).then(html => {
+      document.getElementById("nav-placeholder").outerHTML = html;
+      document.querySelectorAll(".nav-links a").forEach(a => {
+        if (a.getAttribute("href") === window.location.pathname.split("/").pop()) {
+          a.classList.add("active");
+        }
+      });
+    });
+  </script>
 
   <!-- HERO -->
   <div class="page-hero">
