@@ -284,41 +284,12 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="logo">Press &amp; Fold</span>
-        <p>Analog tools for a more intentional life. Crafted with care. Designed with intention.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Products</h5>
-        <ul>
-          <li><a href="journal.html">The Journal</a></li>
-          <li><a href="#">Morning Cards</a></li>
-          <li><a href="#">Greeting Cards</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Studio</h5>
-        <ul>
-          <li><a href="philosophy.html">Philosophy</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="mailto:info@pressandfold.studio">Email us</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Press &amp; Fold. All rights reserved.</p>
-      <a href="mailto:info@pressandfold.studio">info@pressandfold.studio</a>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html").then(r => r.text()).then(html => {
+      document.getElementById("footer-placeholder").outerHTML = html;
+    });
+  </script>
 
 </body>
 </html>
