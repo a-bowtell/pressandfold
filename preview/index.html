@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Press & Fold — Analog Tools for an Intentional Life</title>
+  <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --ink: #2C2820;
+      --ink-light: #5A524A;
+      --ink-faint: #9A8F82;
+      --sage: #8A9E8C;
+      --border: rgba(44,40,32,0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--serif);
+      background: var(--warm-white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(253,250,247,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8rem 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-texture {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(138,158,140,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(247,243,238,0.6) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      max-width: 14ch;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.35s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-body {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink-light);
+      max-width: 42ch;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.5s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.65s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      background: var(--ink);
+      padding: 1rem 2.25rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--ink-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 3rem;
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.2s forwards;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--ink-faint);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .philosophy-left h2 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    .philosophy-left h2 em { font-style: italic; }
+
+    .philosophy-left p {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .philosophy-right {
+      padding-top: 4rem;
+    }
+
+    .principle {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 0;
+    }
+
+    .principle:last-child { border-bottom: 1px solid var(--border); }
+
+    .principle-number {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    .principle h3 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .principle p {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink-light);
+    }
+
+    /* ── PRODUCTS ── */
+    .products { background: var(--warm-white); }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .products-header h2 {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .products-header h2 em { font-style: italic; }
+
+    .products-header a {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .products-header a:hover { color: var(--ink); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .product-card {
+      background: var(--cream);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover { transform: translateY(-4px); }
+
+    .product-card.featured {
+      grid-row: span 2;
+      background: var(--ink);
+      color: var(--warm-white);
+    }
+
+    .product-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 3rem;
+    }
+
+    .product-card.featured .product-tag { color: rgba(247,243,238,0.5); }
+
+    .product-card .product-icon {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .product-card h3 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .product-card h3 em { font-style: italic; }
+
+    .product-card p {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink-light);
+    }
+
+    .product-card.featured p { color: rgba(247,243,238,0.7); }
+
+    .product-card .card-arrow {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      font-size: 1.2rem;
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .product-card:hover .card-arrow { opacity: 1; transform: translate(3px, -3px); }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: var(--ink);
+      color: var(--warm-white);
+      text-align: center;
+      padding: 8rem 3rem;
+    }
+
+    .quote-section blockquote {
+      font-size: clamp(1.6rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.4;
+      max-width: 28ch;
+      margin: 0 auto 2rem;
+      font-style: italic;
+    }
+
+    .quote-section cite {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247,243,238,0.45);
+      font-style: normal;
+    }
+
+    /* ── JOURNAL THEMES ── */
+    .themes { background: var(--cream); }
+
+    .themes h2 {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .themes h2 em { font-style: italic; }
+
+    .themes > p {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-light);
+      max-width: 55ch;
+      margin-bottom: 4rem;
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .theme-tile {
+      padding: 2.5rem 1.5rem;
+      background: var(--warm-white);
+      text-align: center;
+      transition: background 0.25s;
+    }
+
+    .theme-tile:hover { background: var(--ink); color: var(--warm-white); }
+
+    .theme-tile .theme-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-faint);
+      margin-bottom: 1rem;
+      display: block;
+      transition: color 0.25s;
+    }
+
+    .theme-tile:hover .theme-num { color: rgba(247,243,238,0.4); }
+
+    .theme-tile .theme-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .theme-tile h4 {
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    /* ── MECHANISM ── */
+    .mechanism {
+      background: var(--warm-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .mechanism-left h2 {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .mechanism-left h2 em { font-style: italic; }
+
+    .mechanism-left p {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-light);
+    }
+
+    .mechanism-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step:first-child { border-top: 1px solid var(--border); }
+
+    .step-num {
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .step-content h4 {
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+    }
+
+    .step-content p {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink-light);
+    }
+
+    /* ── EMAIL SIGNUP ── */
+    .signup {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .signup h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .signup h2 em { font-style: italic; }
+
+    .signup p {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-light);
+      margin-bottom: 2.5rem;
+    }
+
+    .signup-form {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .signup-form input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-right: none;
+      padding: 0.9rem 1.2rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      background: var(--warm-white);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .signup-form input:focus { border-color: var(--ink-light); }
+    .signup-form input::placeholder { color: var(--ink-faint); }
+
+    .signup-form button {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 0.9rem 1.75rem;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .signup-form button:hover { background: var(--ink-light); border-color: var(--ink-light); }
+
+    .signup-note {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      margin-top: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 5rem 3rem 3rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(247,243,238,0.1);
+    }
+
+    .footer-brand .logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .footer-brand p {
+      font-family: var(--sans);
+      font-size: 0.83rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(247,243,238,0.55);
+      max-width: 32ch;
+    }
+
+    .footer-col h5 {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247,243,238,0.4);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .footer-col a {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(247,243,238,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--warm-white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: rgba(247,243,238,0.3);
+    }
+
+    .footer-bottom a {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: rgba(247,243,238,0.3);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .philosophy { grid-template-columns: 1fr; gap: 3rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card.featured { grid-row: auto; }
+      .themes-grid { grid-template-columns: repeat(4, 1fr); }
+      .mechanism { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .themes-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .products-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .signup-form { flex-direction: column; }
+      .signup-form input { border-right: 1px solid var(--border); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Press &amp; Fold</a>
+    <ul class="nav-links">
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="philosophy.html">Philosophy</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html#shop">Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-texture"></div>
+    <p class="hero-eyebrow">Analog tools for an intentional life</p>
+    <h1 class="hero-title">
+      Slow down.<br>
+      Press in.<br>
+      <em>Unfold.</em>
+    </h1>
+    <p class="hero-body">
+      We make beautiful, soulful journals and analog tools designed to bring you back to yourself — one quiet moment at a time.
+    </p>
+    <div class="hero-actions">
+      <a href="journal.html" class="btn-primary">Explore the Journal</a>
+      <a href="philosophy.html" class="btn-ghost">Our Philosophy</a>
+    </div>
+    <p class="hero-scroll">Scroll to explore</p>
+  </section>
+
+  <!-- PHILOSOPHY INTRO -->
+  <section class="philosophy">
+    <div class="philosophy-left">
+      <p class="section-label">What we believe</p>
+      <h2>A gentle<br><em>return</em><br>to yourself.</h2>
+      <p>
+        In a world built for speed, Press &amp; Fold is a pause. We believe in the quiet power of analog tools — objects crafted with care, designed to bring people back to what matters most.
+      </p>
+      <p>
+        This isn't about productivity. It isn't about transformation. It's about noticing. About building the small, repeating practice of turning inward and meeting yourself there.
+      </p>
+    </div>
+    <div class="philosophy-right">
+      <div class="principle">
+        <p class="principle-number">01</p>
+        <h3>Awareness is a skill.</h3>
+        <p>We can strengthen our ability to notice meaningful experiences — to pause, see clearly, and hold what's present.</p>
+      </div>
+      <div class="principle">
+        <p class="principle-number">02</p>
+        <h3>Reflection builds coherence.</h3>
+        <p>Writing creates narrative — the through-line that connects who we are to where we're going.</p>
+      </div>
+      <div class="principle">
+        <p class="principle-number">03</p>
+        <h3>Direction comes from small steps.</h3>
+        <p>Intentional life doesn't begin with grand gestures. It begins with one honest question, answered honestly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products">
+    <div class="products-header">
+      <h2>Made<br><em>with care.</em></h2>
+      <a href="journal.html">View all products →</a>
+    </div>
+    <div class="products-grid">
+      <a href="journal.html" class="product-card featured">
+        <p class="product-tag">First Collection</p>
+        <span class="product-icon">📖</span>
+        <h3>The Intentions<br><em>Journal</em></h3>
+        <p>A 30-day guided reflection practice. Structured enough to give you direction. Spacious enough to make it yours.</p>
+        <span class="card-arrow">↗</span>
+      </a>
+      <a href="journal.html#morning" class="product-card">
+        <p class="product-tag">Coming Soon</p>
+        <span class="product-icon">🌅</span>
+        <h3>Morning<br>Cards</h3>
+        <p>Single-prompt cards for a slow morning. One question. Enough space to breathe.</p>
+        <span class="card-arrow">↗</span>
+      </a>
+      <a href="journal.html#greeting" class="product-card">
+        <p class="product-tag">Coming Soon</p>
+        <span class="product-icon">✉️</span>
+        <h3>Greeting<br>Cards</h3>
+        <p>Cards designed to hold more than a signature — prompts that invite a real response.</p>
+        <span class="card-arrow">↗</span>
+      </a>
+      <a href="philosophy.html" class="product-card">
+        <p class="product-tag">The Method</p>
+        <span class="product-icon">🌿</span>
+        <h3>Rooted in<br>Research</h3>
+        <p>Everything we make is grounded in three pillars: awareness, coherent reflection, and realistic agency.</p>
+        <span class="card-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <blockquote>
+      "A gentle prompt to pause, press in, and unfold what matters most."
+    </blockquote>
+    <cite>Press &amp; Fold — Vision Statement</cite>
+  </section>
+
+  <!-- JOURNAL THEMES -->
+  <section class="themes">
+    <p class="section-label">Inside the journal</p>
+    <h2>Seven themes.<br><em>Thirty days.</em></h2>
+    <p>
+      Each journal cycles through seven emotional themes — not a rigid program, but a rhythm. A structure that holds you without constraining you.
+    </p>
+    <div class="themes-grid">
+      <div class="theme-tile">
+        <span class="theme-num">I</span>
+        <span class="theme-icon">🌱</span>
+        <h4>Awareness &amp; Grounding</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">II</span>
+        <span class="theme-icon">✨</span>
+        <h4>Curiosity &amp; Spark</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">III</span>
+        <span class="theme-icon">🌸</span>
+        <h4>Softness &amp; Self-Compassion</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">IV</span>
+        <span class="theme-icon">🌤</span>
+        <h4>Perspective &amp; Pause</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">V</span>
+        <span class="theme-icon">🤝</span>
+        <h4>Connection &amp; Belonging</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">VI</span>
+        <span class="theme-icon">🔆</span>
+        <h4>Light &amp; Lens</h4>
+      </div>
+      <div class="theme-tile">
+        <span class="theme-num">VII</span>
+        <span class="theme-icon">🌊</span>
+        <h4>Closure &amp; Continuity</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- MECHANISM LOOP -->
+  <section class="mechanism">
+    <div class="mechanism-left">
+      <p class="section-label">How it works</p>
+      <h2>A simple<br><em>loop.</em><br>Repeated daily.</h2>
+      <p>
+        Every prompt in our journal supports a five-part reflection cycle. Not a framework — more like a rhythm. A quiet structure that strengthens over time.
+      </p>
+    </div>
+    <div class="mechanism-steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <h4>Notice</h4>
+          <p>What is present right now? Emotionally, physically, relationally.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <h4>Name</h4>
+          <p>What need or value feels supported or strained?</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <h4>Choose</h4>
+          <p>What would a self-endorsed choice look like right now?</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <h4>Commit</h4>
+          <p>What belief about myself am I reinforcing today?</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <h4>Act</h4>
+          <p>What is one realistic action within my control?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <section class="signup">
+    <p class="section-label" style="justify-content: center;">Stay close</p>
+    <h2>Be the first to<br><em>hold it.</em></h2>
+    <p>The first collection is taking shape. Join the list to hear first — no noise, just the quiet news.</p>
+    <form class="signup-form" onsubmit="return false;">
+      <input type="email" placeholder="Your email address" />
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="signup-note">No spam. Unsubscribe any time.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Press &amp; Fold</span>
+        <p>Analog tools for a more intentional life. Crafted with care. Designed with intention.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="journal.html">The Journal</a></li>
+          <li><a href="journal.html#morning">Morning Cards</a></li>
+          <li><a href="journal.html#greeting">Greeting Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:info@pressandfold.studio">Email us</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Press &amp; Fold. All rights reserved.</p>
+      <a href="mailto:info@pressandfold.studio">info@pressandfold.studio</a>
+    </div>
+  </footer>
+
+</body>
+</html>

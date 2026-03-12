@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Philosophy — Press & Fold</title>
+  <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --ink: #2C2820;
+      --ink-light: #5A524A;
+      --ink-faint: #9A8F82;
+      --sage: #8A9E8C;
+      --border: rgba(44,40,32,0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--serif); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(253,250,247,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 10rem 3rem 6rem;
+      background: var(--ink);
+      color: var(--warm-white);
+    }
+    .page-hero .eyebrow { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; }
+    .page-hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.1; max-width: 18ch; margin-bottom: 2rem; }
+    .page-hero h1 em { font-style: italic; }
+    .page-hero p { font-family: var(--sans); font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(247,243,238,0.65); max-width: 48ch; }
+
+    /* SECTIONS */
+    section { padding: 7rem 3rem; }
+    .section-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 3.5rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--sage); }
+
+    /* VISION */
+    .vision { background: var(--cream); }
+    .vision-inner { max-width: 720px; }
+    .vision h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 2.5rem; }
+    .vision h2 em { font-style: italic; }
+    .vision p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 1.5rem; }
+    .vision p strong { font-weight: 500; color: var(--ink); font-family: var(--serif); font-size: 1.05rem; font-style: italic; }
+
+    /* THREE PILLARS */
+    .pillars { background: var(--warm-white); }
+    .pillars-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: end; margin-bottom: 5rem; }
+    .pillars-intro h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; }
+    .pillars-intro h2 em { font-style: italic; }
+    .pillars-intro p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); }
+
+    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .pillar { background: var(--cream); padding: 3.5rem 2.5rem; }
+    .pillar-num { font-family: var(--serif); font-size: 5rem; font-weight: 300; color: var(--border); line-height: 1; margin-bottom: 1.5rem; font-style: italic; display: block; }
+    .pillar h3 { font-size: 1.5rem; font-weight: 400; margin-bottom: 1.25rem; line-height: 1.2; }
+    .pillar h3 em { font-style: italic; }
+    .pillar p { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; line-height: 1.8; color: var(--ink-light); margin-bottom: 1.5rem; }
+    .pillar-detail { font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sage); border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 1.25rem; }
+
+    /* CHAIN */
+    .chain { background: var(--ink); color: var(--warm-white); text-align: center; padding: 8rem 3rem; }
+    .chain h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 300; margin-bottom: 4rem; color: rgba(247,243,238,0.5); letter-spacing: 0.05em; }
+    .chain-flow { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .chain-node { text-align: center; }
+    .chain-node .node-word { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--warm-white); }
+    .chain-node .node-sub { font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,243,238,0.4); margin-top: 0.75rem; display: block; }
+    .chain-arrow { font-size: 1.5rem; color: rgba(247,243,238,0.2); align-self: center; }
+
+    /* DESIGN RULES */
+    .design-rules { background: var(--cream); }
+    .design-rules h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+    .design-rules h2 em { font-style: italic; }
+    .design-rules > p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); max-width: 55ch; margin-bottom: 4rem; }
+    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .rule-block { background: var(--warm-white); padding: 3rem 2.5rem; }
+    .rule-block h4 { font-size: 1.2rem; font-weight: 400; margin-bottom: 1.25rem; }
+    .rule-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .rule-list li { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; line-height: 1.65; color: var(--ink-light); padding-left: 1.25rem; position: relative; }
+    .rule-list li::before { content: '→'; position: absolute; left: 0; color: var(--sage); }
+
+    /* LANGUAGE */
+    .language { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .language-col { padding: 7rem 3rem; }
+    .language-col:first-child { background: var(--warm-white); border-right: 1px solid var(--border); }
+    .language-col:last-child { background: var(--cream); }
+    .language-col h3 { font-size: 1.6rem; font-weight: 300; margin-bottom: 2.5rem; }
+    .language-col h3 em { font-style: italic; }
+    .word-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+    .word-item { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+    .word-item .word { font-size: 1.1rem; font-weight: 400; }
+    .word-item .word-note { font-family: var(--sans); font-size: 0.72rem; font-weight: 300; color: var(--ink-faint); }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--warm-white); padding: 5rem 3rem 3rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(247,243,238,0.1); }
+    .footer-brand .logo { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.25rem; display: block; }
+    .footer-brand p { font-family: var(--sans); font-size: 0.83rem; font-weight: 300; line-height: 1.75; color: rgba(247,243,238,0.55); max-width: 32ch; }
+    .footer-col h5 { font-family: var(--sans); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,243,238,0.4); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-col a { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; color: rgba(247,243,238,0.65); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--warm-white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); }
+    .footer-bottom a { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .page-hero { padding: 8rem 1.5rem 5rem; }
+      section { padding: 5rem 1.5rem; }
+      .pillars-intro { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .rules-grid { grid-template-columns: 1fr; }
+      .language { grid-template-columns: 1fr; }
+      .language-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .language-col { padding: 4rem 1.5rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .chain-flow { flex-direction: column; gap: 1rem; }
+      .chain-arrow { transform: rotate(90deg); }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Press &amp; Fold</a>
+    <ul class="nav-links">
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="philosophy.html" class="active">Philosophy</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html#shop">Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <p class="eyebrow">Our beliefs</p>
+    <h1>Why we make<br><em>what we make.</em></h1>
+    <p>Press &amp; Fold is built on a simple idea: that the practice of turning inward — quietly, honestly, without pressure — changes something.</p>
+  </div>
+
+  <!-- VISION -->
+  <section class="vision">
+    <p class="section-label">Vision</p>
+    <div class="vision-inner">
+      <h2>A world where<br><em>slowing down</em><br>is a daily practice.</h2>
+      <p>At Press &amp; Fold, we envision a world where slowing down becomes a daily practice, not a luxury. We believe in the quiet power of analog tools — objects crafted with care and designed with intention — to bring people back to themselves.</p>
+      <p>Our vision is to create beautiful, soulful products that invite reflection, spark creativity, and restore presence in a distracted world. Whether through journals, greeting cards, or thoughtful systems, everything we make is a gentle prompt to pause, press in, and unfold what matters most.</p>
+      <p><strong>We're not just building a brand — we're building a rhythm.</strong> One that honours craft, cultivates mindfulness, and helps people live with more clarity, depth, and heart.</p>
+    </div>
+  </section>
+
+  <!-- THREE PILLARS -->
+  <section class="pillars">
+    <div class="pillars-intro">
+      <h2>Grounded in<br><em>real research.</em></h2>
+      <p>Every product we make is built on three psychological pillars. Not because we want to be clinical — but because we want to be honest. We only claim what the research supports.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <span class="pillar-num">I</span>
+        <h3>Awareness is<br><em>a skill.</em></h3>
+        <p>Our ability to notice meaningful experiences — to pause, see clearly, and hold what's present — can be strengthened. Attention isn't fixed. It's trainable.</p>
+        <p class="pillar-detail">Mechanisms: attention regulation · emotional labelling · mindfulness awareness · affect granularity</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">II</span>
+        <h3>Reflection builds<br><em>coherence.</em></h3>
+        <p>Writing creates narrative — the through-line that connects who we are to where we're going. Expressive writing and narrative identity are supported by meaningful research.</p>
+        <p class="pillar-detail">Mechanisms: expressive writing · narrative identity · meaning-making · cognitive reappraisal</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">III</span>
+        <h3>Agency shapes<br><em>direction.</em></h3>
+        <p>Intentional direction emerges from small, self-authored steps. Not grand reinvention — but a repeating practice of choosing what aligns with your own values and needs.</p>
+        <p class="pillar-detail">Framework: Self-Determination Theory · autonomous motivation · realistic agency</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAIN -->
+  <div class="chain">
+    <h2>The philosophical chain</h2>
+    <div class="chain-flow">
+      <div class="chain-node">
+        <p class="node-word">Awareness</p>
+        <span class="node-sub">Pillar One</span>
+      </div>
+      <span class="chain-arrow">→</span>
+      <div class="chain-node">
+        <p class="node-word">Alignment</p>
+        <span class="node-sub">Values Clarity</span>
+      </div>
+      <span class="chain-arrow">→</span>
+      <div class="chain-node">
+        <p class="node-word">Intentional Direction</p>
+        <span class="node-sub">Pillars Two &amp; Three</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN RULES -->
+  <section class="design-rules">
+    <p class="section-label">Design principles</p>
+    <h2>What we build<br><em>toward.</em></h2>
+    <p>These are the internal principles that guide every product, every prompt, and every piece of copy we write.</p>
+    <div class="rules-grid">
+      <div class="rule-block">
+        <h4>Structure over intensity.</h4>
+        <ul class="rule-list">
+          <li>Reflection should increase clarity, not pressure.</li>
+          <li>Prompts create space — they don't demand performance.</li>
+          <li>Short prompts. Honest questions. Enough room to breathe.</li>
+          <li>Skip a day. Come back. The journal holds no judgment.</li>
+        </ul>
+      </div>
+      <div class="rule-block">
+        <h4>Volition over pressure.</h4>
+        <ul class="rule-list">
+          <li>We support self-endorsed choice — not prescribed behavior.</li>
+          <li>Meaning over output. Congruence over status.</li>
+          <li>Capability over control.</li>
+          <li>We build toward autonomy, not compliance.</li>
+        </ul>
+      </div>
+      <div class="rule-block">
+        <h4>Honest claim boundaries.</h4>
+        <ul class="rule-list">
+          <li>We say: support, invite, encourage, may, can.</li>
+          <li>We say: research suggests, outcomes vary, context matters.</li>
+          <li>We don't promise healing, happiness, or permanent change.</li>
+          <li>We offer structured reflection. That's honest and enough.</li>
+        </ul>
+      </div>
+      <div class="rule-block">
+        <h4>Dignity in every prompt.</h4>
+        <ul class="rule-list">
+          <li>Every question should strengthen choice.</li>
+          <li>Every prompt should protect dignity.</li>
+          <li>Every page should honour your constraints.</li>
+          <li>Shame-based framing has no place here.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGE -->
+  <div class="language">
+    <div class="language-col">
+      <h3>Language we<br><em>use.</em></h3>
+      <ul class="word-list">
+        <li class="word-item"><span class="word">Support</span><span class="word-note">not demand</span></li>
+        <li class="word-item"><span class="word">Invite</span><span class="word-note">not instruct</span></li>
+        <li class="word-item"><span class="word">Encourage</span><span class="word-note">not pressure</span></li>
+        <li class="word-item"><span class="word">May</span><span class="word-note">not will</span></li>
+        <li class="word-item"><span class="word">Can</span><span class="word-note">not must</span></li>
+        <li class="word-item"><span class="word">Research suggests</span><span class="word-note">not proven to</span></li>
+      </ul>
+    </div>
+    <div class="language-col">
+      <h3>Language we<br><em>avoid.</em></h3>
+      <ul class="word-list">
+        <li class="word-item"><span class="word">Take control</span><span class="word-note">too coercive</span></li>
+        <li class="word-item"><span class="word">Reinvent yourself</span><span class="word-note">too grandiose</span></li>
+        <li class="word-item"><span class="word">Guaranteed transformation</span><span class="word-note">too dishonest</span></li>
+        <li class="word-item"><span class="word">Fix yourself</span><span class="word-note">implies brokenness</span></li>
+        <li class="word-item"><span class="word">Hustle</span><span class="word-note">wrong frame</span></li>
+        <li class="word-item"><span class="word">Optimize your life</span><span class="word-note">not our approach</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Press &amp; Fold</span>
+        <p>Analog tools for a more intentional life. Crafted with care. Designed with intention.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="journal.html">The Journal</a></li>
+          <li><a href="#">Morning Cards</a></li>
+          <li><a href="#">Greeting Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:info@pressandfold.studio">Email us</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Press &amp; Fold. All rights reserved.</p>
+      <a href="mailto:info@pressandfold.studio">info@pressandfold.studio</a>
+    </div>
+  </footer>
+
+</body>
+</html>

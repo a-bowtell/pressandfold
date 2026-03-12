@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Press & Fold</title>
+  <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --ink: #2C2820;
+      --ink-light: #5A524A;
+      --ink-faint: #9A8F82;
+      --sage: #8A9E8C;
+      --border: rgba(44,40,32,0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--serif); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(253,250,247,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* HERO */
+    .about-hero {
+      padding: 10rem 3rem 7rem;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .about-hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 2rem; }
+    .about-hero h1 em { font-style: italic; }
+    .about-hero p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 1.5rem; }
+    .eyebrow { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; }
+    .about-hero-right { padding-top: 3.5rem; }
+    .values-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
+    .value-item { padding: 1.25rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 1rem; align-items: baseline; }
+    .value-item:first-child { border-top: 1px solid var(--border); }
+    .value-icon { font-size: 1rem; }
+    .value-text { font-family: var(--sans); font-size: 0.88rem; font-weight: 300; line-height: 1.6; color: var(--ink-light); }
+    .value-text strong { font-weight: 500; color: var(--ink); }
+
+    /* SECTIONS */
+    section { padding: 7rem 3rem; }
+    .section-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 3.5rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--sage); }
+
+    /* STORY */
+    .story { background: var(--warm-white); }
+    .story-inner { max-width: 680px; }
+    .story h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 3rem; }
+    .story h2 em { font-style: italic; }
+    .story p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; line-height: 2; color: var(--ink-light); margin-bottom: 1.75rem; }
+
+    /* BUILDING IN PUBLIC */
+    .building { background: var(--cream); }
+    .building-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .building h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; }
+    .building h2 em { font-style: italic; }
+    .building p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); margin-bottom: 1.5rem; }
+    .roadmap { display: flex; flex-direction: column; gap: 0; }
+    .roadmap-item { padding: 1.75rem 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 24px 1fr; gap: 1.5rem; align-items: start; }
+    .roadmap-item:first-child { border-top: 1px solid var(--border); }
+    .roadmap-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--sage); margin-top: 5px; }
+    .roadmap-dot.done { background: var(--ink); }
+    .roadmap-dot.future { background: transparent; border: 1px solid var(--border); }
+    .roadmap-content h5 { font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+    .roadmap-content p { font-family: var(--sans); font-size: 0.8rem; font-weight: 300; line-height: 1.6; color: var(--ink-faint); }
+    .stage-badge { font-family: var(--sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.6rem; margin-left: 0.5rem; vertical-align: middle; }
+    .stage-badge.complete { background: rgba(138,158,140,0.15); color: var(--sage); }
+    .stage-badge.current { background: var(--ink); color: var(--warm-white); }
+    .stage-badge.upcoming { background: var(--border); color: var(--ink-faint); }
+
+    /* BRAND REMINDERS */
+    .reminders { background: var(--ink); color: var(--warm-white); }
+    .reminders h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; margin-bottom: 1.5rem; }
+    .reminders h2 em { font-style: italic; }
+    .reminders > p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: rgba(247,243,238,0.6); max-width: 50ch; margin-bottom: 4rem; }
+    .reminder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .reminder-card { background: rgba(247,243,238,0.04); border: 1px solid rgba(247,243,238,0.08); padding: 2.5rem; }
+    .reminder-icon { font-size: 1.5rem; margin-bottom: 1.25rem; display: block; }
+    .reminder-card p { font-family: var(--sans); font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: rgba(247,243,238,0.75); font-style: italic; }
+
+    /* CONTACT */
+    .contact { background: var(--cream); text-align: center; }
+    .contact h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; margin-bottom: 1rem; }
+    .contact h2 em { font-style: italic; }
+    .contact p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.8; color: var(--ink-light); margin-bottom: 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--border); padding: 1rem 2rem; transition: background 0.2s, color 0.2s; }
+    .contact-link:hover { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--warm-white); padding: 5rem 3rem 3rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(247,243,238,0.1); }
+    .footer-brand .logo { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.25rem; display: block; }
+    .footer-brand p { font-family: var(--sans); font-size: 0.83rem; font-weight: 300; line-height: 1.75; color: rgba(247,243,238,0.55); max-width: 32ch; }
+    .footer-col h5 { font-family: var(--sans); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,243,238,0.4); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-col a { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; color: rgba(247,243,238,0.65); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--warm-white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); }
+    .footer-bottom a { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .about-hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 5rem; gap: 3rem; }
+      section { padding: 5rem 1.5rem; }
+      .building-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .reminder-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; }
+      .contact-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Press &amp; Fold</a>
+    <ul class="nav-links">
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="philosophy.html">Philosophy</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="journal.html#shop">Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="about-hero">
+    <div>
+      <p class="eyebrow">The studio</p>
+      <h1>Built slowly.<br><em>On purpose.</em></h1>
+      <p>Press &amp; Fold is a small studio making analog tools for people who want to slow down and pay attention to their own lives.</p>
+      <p>We make journals and paper goods — designed with care, grounded in real research, and made to last longer than the moment you open them.</p>
+    </div>
+    <div class="about-hero-right">
+      <ul class="values-list">
+        <li class="value-item">
+          <span class="value-icon">🌿</span>
+          <p class="value-text"><strong>Grow at your own rhythm.</strong> No hustle. No urgency theatre.</p>
+        </li>
+        <li class="value-item">
+          <span class="value-icon">🤲</span>
+          <p class="value-text"><strong>Keep it human.</strong> Products that feel like they were made by a person who cares.</p>
+        </li>
+        <li class="value-item">
+          <span class="value-icon">⚖️</span>
+          <p class="value-text"><strong>Prioritise joy, balance, and meaningful connection</strong> over output and performance.</p>
+        </li>
+        <li class="value-item">
+          <span class="value-icon">🔗</span>
+          <p class="value-text"><strong>Let the business reflect the values</strong> — not override them.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="story">
+    <p class="section-label">The story</p>
+    <div class="story-inner">
+      <h2>Something felt<br><em>missing.</em></h2>
+      <p>Press &amp; Fold started from a simple observation: most journals on the market fell into one of two camps. They were either minimal to the point of being empty — a blank page with a date — or structured to the point of being coercive, demanding you perform productivity or gratitude on cue.</p>
+      <p>Neither felt right. What was missing was something that held structure without pressure, that invited reflection without turning it into a task, that felt like a thoughtful conversation on paper rather than a form to fill in.</p>
+      <p>The brand grew from that gap. It's grounded in real psychological research — not as an excuse to make clinical claims, but as a commitment to only claiming what's actually true about what writing can do for us.</p>
+      <p>The name comes from the physical gesture of pressing into something and watching it unfold. It's a quiet metaphor for what good reflection does: it creates space, slowly, without force.</p>
+    </div>
+  </section>
+
+  <!-- BUILDING IN PUBLIC -->
+  <section class="building">
+    <div class="building-grid">
+      <div>
+        <p class="section-label">Where we are</p>
+        <h2>Building<br><em>carefully.</em></h2>
+        <p>Press &amp; Fold is a studio in its early stages. The first collection is in development. We're building slowly, on purpose — because the product has to be right before it's released.</p>
+        <p>We don't believe in launching fast and figuring it out later. The journal you hold should feel like it was made with as much care as the practice it supports.</p>
+      </div>
+      <div>
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-dot done"></div>
+            <div class="roadmap-content">
+              <h5>Brand foundations <span class="stage-badge complete">Done</span></h5>
+              <p>Vision, philosophy, voice, and evidence-aligned design principles.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot done"></div>
+            <div class="roadmap-content">
+              <h5>Research pillars <span class="stage-badge complete">Done</span></h5>
+              <p>Three research-grounded pillars: awareness, coherent reflection, agency.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-content">
+              <h5>Prompt system <span class="stage-badge current">In Progress</span></h5>
+              <p>30-day prompt set across seven themes, morning and evening.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot future"></div>
+            <div class="roadmap-content">
+              <h5>Physical production <span class="stage-badge upcoming">Upcoming</span></h5>
+              <p>Print testing, paper selection, manufacturing partners.</p>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot future"></div>
+            <div class="roadmap-content">
+              <h5>First collection launch <span class="stage-badge upcoming">Upcoming</span></h5>
+              <p>The Intentions Journal, Vol. I — available to the waitlist first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REMINDERS (brand values, pulled from Notion) -->
+  <section class="reminders">
+    <p class="section-label" style="color: rgba(138,158,140,0.8);">Brand reminders</p>
+    <h2>The things we<br><em>come back to.</em></h2>
+    <p>These are the phrases we keep on the wall — the ones we return to when a decision feels uncertain.</p>
+    <div class="reminder-grid">
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Are you simply interested, or committed to making your vision a reality?"</p>
+      </div>
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Keep it human."</p>
+      </div>
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Grow at your own rhythm."</p>
+      </div>
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Prioritise joy, balance, and meaningful connection over hustle or hype."</p>
+      </div>
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Let the business reflect your values — not override them."</p>
+      </div>
+      <div class="reminder-card">
+        <span class="reminder-icon">🌿</span>
+        <p>"Everything we make is a gentle prompt to pause, press in, and unfold what matters most."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <p class="section-label" style="justify-content: center;">Get in touch</p>
+    <h2>We'd love<br>to <em>hear from you.</em></h2>
+    <p>Whether you have a question about the journal, want to share something, or just want to say hello — we're here.</p>
+    <div class="contact-links">
+      <a href="mailto:info@pressandfold.studio" class="contact-link">
+        ✉ info@pressandfold.studio
+      </a>
+      <a href="journal.html#shop" class="contact-link">
+        ✦ Join the waitlist
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Press &amp; Fold</span>
+        <p>Analog tools for a more intentional life. Crafted with care. Designed with intention.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="journal.html">The Journal</a></li>
+          <li><a href="#">Morning Cards</a></li>
+          <li><a href="#">Greeting Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:info@pressandfold.studio">Email us</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Press &amp; Fold. All rights reserved.</p>
+      <a href="mailto:info@pressandfold.studio">info@pressandfold.studio</a>
+    </div>
+  </footer>
+
+</body>
+</html>

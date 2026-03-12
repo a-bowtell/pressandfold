@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Intentions Journal — Press & Fold</title>
+  <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --ink: #2C2820;
+      --ink-light: #5A524A;
+      --ink-faint: #9A8F82;
+      --sage: #8A9E8C;
+      --border: rgba(44,40,32,0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--serif); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(253,250,247,0.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* HERO */
+    .journal-hero {
+      padding: 10rem 3rem 6rem;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .journal-hero-left { }
+    .breadcrumb { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--ink-faint); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--ink-light); }
+    .journal-hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+    .journal-hero h1 em { font-style: italic; }
+    .journal-hero .subtitle { font-family: var(--sans); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); margin-bottom: 2.5rem; }
+    .tag-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .tag { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--border); padding: 0.4rem 0.9rem; color: var(--ink-light); }
+    .btn-primary { display: inline-block; font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); background: var(--ink); padding: 1rem 2.25rem; text-decoration: none; transition: background 0.2s; cursor: pointer; border: none; }
+    .btn-primary:hover { background: var(--ink-light); }
+
+    .journal-hero-right {
+      aspect-ratio: 3/4;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .journal-mockup {
+      width: 75%;
+      aspect-ratio: 3/4;
+      background: var(--warm-white);
+      border-radius: 2px;
+      box-shadow: 8px 8px 40px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .journal-mockup .mock-logo { font-family: var(--serif); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1.5rem; }
+    .journal-mockup .mock-title { font-size: 1.8rem; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 0.75rem; }
+    .journal-mockup .mock-sub { font-family: var(--sans); font-size: 0.72rem; font-weight: 300; letter-spacing: 0.1em; color: var(--ink-faint); text-transform: uppercase; }
+    .journal-mockup .mock-line { width: 30px; height: 1px; background: var(--border); margin: 1.5rem auto; }
+
+    /* DETAILS */
+    .journal-details {
+      padding: 6rem 3rem;
+      background: var(--warm-white);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .detail-block {
+      background: var(--cream);
+      padding: 2.5rem 2rem;
+    }
+    .detail-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+    .detail-block h4 { font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .detail-block p { font-family: var(--sans); font-size: 0.82rem; font-weight: 300; line-height: 1.7; color: var(--ink-light); }
+
+    /* INSIDE THE JOURNAL */
+    .inside { padding: 7rem 3rem; background: var(--cream); }
+    .inside-header { margin-bottom: 5rem; }
+    .section-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--sage); }
+    .inside-header h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; }
+    .inside-header h2 em { font-style: italic; }
+    .inside-header p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); max-width: 55ch; margin-top: 1.5rem; }
+
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .page-preview {
+      background: var(--warm-white);
+      padding: 3rem 2.5rem;
+      position: relative;
+    }
+    .page-preview .page-type { font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; }
+    .page-preview h3 { font-size: 1.4rem; font-weight: 400; margin-bottom: 1.5rem; font-style: italic; }
+    .prompt-sample {
+      border-left: 2px solid var(--border);
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .prompt-sample p { font-family: var(--sans); font-size: 0.82rem; font-weight: 300; line-height: 1.6; color: var(--ink-light); }
+    .lines {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .lines span { display: block; height: 1px; background: var(--border); }
+
+    /* THEMES PAGE */
+    .theme-detail { padding: 7rem 3rem; background: var(--warm-white); }
+    .theme-detail h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; margin-bottom: 1rem; }
+    .theme-detail h2 em { font-style: italic; }
+    .theme-detail > p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--ink-light); max-width: 55ch; margin-bottom: 4rem; }
+    .themes-list { display: flex; flex-direction: column; gap: 0; }
+    .theme-item { display: grid; grid-template-columns: 60px 180px 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .theme-item:first-child { border-top: 1px solid var(--border); }
+    .theme-num-big { font-size: 2.5rem; font-weight: 300; color: var(--border); font-style: italic; line-height: 1; }
+    .theme-name h4 { font-size: 1.2rem; font-weight: 400; margin-bottom: 0.25rem; }
+    .theme-name .icon { font-size: 1.2rem; }
+    .theme-desc { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; line-height: 1.75; color: var(--ink-light); padding-top: 0.25rem; }
+
+    /* NOT THIS */
+    .not-this { padding: 7rem 3rem; background: var(--ink); color: var(--warm-white); }
+    .not-this .section-label { color: rgba(138,158,140,0.8); }
+    .not-this .section-label::after { background: rgba(138,158,140,0.8); }
+    .not-this-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .not-this h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+    .not-this h2 em { font-style: italic; }
+    .not-this > p, .not-this-grid p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: rgba(247,243,238,0.6); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .col-block h5 { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.25rem; }
+    .col-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .col-block li { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: rgba(247,243,238,0.7); padding-left: 1rem; position: relative; }
+    .col-block li::before { content: '—'; position: absolute; left: 0; color: rgba(247,243,238,0.25); }
+
+    /* SHOP SECTION */
+    .shop { padding: 7rem 3rem; background: var(--cream); text-align: center; }
+    .shop h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; margin-bottom: 1rem; }
+    .shop h2 em { font-style: italic; }
+    .shop p { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; line-height: 1.8; color: var(--ink-light); margin-bottom: 2.5rem; }
+    .coming-soon-badge { display: inline-block; font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; background: var(--ink); color: var(--warm-white); padding: 0.65rem 1.5rem; margin-bottom: 2.5rem; }
+    .shop-email-form { display: flex; gap: 0; max-width: 400px; margin: 0 auto; }
+    .shop-email-form input { flex: 1; border: 1px solid var(--border); border-right: none; padding: 0.9rem 1.2rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; background: var(--warm-white); color: var(--ink); outline: none; }
+    .shop-email-form input::placeholder { color: var(--ink-faint); }
+    .shop-email-form button { border: 1px solid var(--ink); background: var(--ink); color: var(--warm-white); padding: 0.9rem 1.5rem; font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--warm-white); padding: 5rem 3rem 3rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(247,243,238,0.1); }
+    .footer-brand .logo { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.25rem; display: block; }
+    .footer-brand p { font-family: var(--sans); font-size: 0.83rem; font-weight: 300; line-height: 1.75; color: rgba(247,243,238,0.55); max-width: 32ch; }
+    .footer-col h5 { font-family: var(--sans); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,243,238,0.4); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-col a { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; color: rgba(247,243,238,0.65); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--warm-white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); }
+    .footer-bottom a { font-family: var(--sans); font-size: 0.72rem; color: rgba(247,243,238,0.3); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .journal-hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; gap: 3rem; }
+      .journal-details { grid-template-columns: 1fr 1fr; padding: 4rem 1.5rem; }
+      .inside, .theme-detail, .not-this, .shop { padding: 5rem 1.5rem; }
+      .pages-grid { grid-template-columns: 1fr; }
+      .not-this-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .theme-item { grid-template-columns: 40px 1fr; }
+      .theme-desc { grid-column: 1 / -1; padding-top: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .journal-details { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; }
+      .shop-email-form { flex-direction: column; }
+      .shop-email-form input { border-right: 1px solid var(--border); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Press &amp; Fold</a>
+    <ul class="nav-links">
+      <li><a href="journal.html" class="active">Journal</a></li>
+      <li><a href="philosophy.html">Philosophy</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#shop">Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="journal-hero">
+    <div class="journal-hero-left">
+      <p class="breadcrumb"><a href="index.html">Home</a> / The Journal</p>
+      <h1>The Intentions<br><em>Journal</em></h1>
+      <p class="subtitle">A 30-day guided reflection practice. Structured enough to give you direction. Spacious enough to make it yours.</p>
+      <div class="tag-row">
+        <span class="tag">30 Days</span>
+        <span class="tag">Morning &amp; Evening</span>
+        <span class="tag">Undated</span>
+        <span class="tag">Research-Based</span>
+      </div>
+      <a href="#shop" class="btn-primary">Join the Waitlist</a>
+    </div>
+    <div class="journal-hero-right">
+      <div class="journal-mockup">
+        <p class="mock-logo">Press &amp; Fold</p>
+        <div class="mock-line"></div>
+        <p class="mock-title">The Intentions<br>Journal</p>
+        <p class="mock-sub">Vol. I</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div class="journal-details">
+    <div class="detail-block">
+      <span class="detail-icon">📅</span>
+      <h4>Undated</h4>
+      <p>Start any day. Skip days. Come back. The journal holds no expectations about when you show up.</p>
+    </div>
+    <div class="detail-block">
+      <span class="detail-icon">🌅</span>
+      <h4>Morning &amp; Evening</h4>
+      <p>Two gentle bookends to the day. Choose one, or both. There is no wrong way to use this journal.</p>
+    </div>
+    <div class="detail-block">
+      <span class="detail-icon">🌀</span>
+      <h4>30-Day Rhythm</h4>
+      <p>Seven emotional themes across thirty days. Not a program — a rhythm that builds over time.</p>
+    </div>
+    <div class="detail-block">
+      <span class="detail-icon">🔬</span>
+      <h4>Research-Grounded</h4>
+      <p>Every prompt is designed around three research-supported pillars: awareness, reflection, and agency.</p>
+    </div>
+  </div>
+
+  <!-- INSIDE THE JOURNAL -->
+  <section class="inside">
+    <div class="inside-header">
+      <p class="section-label">What's inside</p>
+      <h2>Two questions<br><em>per day.</em><br>Enough space to breathe.</h2>
+      <p>The journal follows a simple morning and evening structure. Each prompt is crafted to invite noticing, not performing.</p>
+    </div>
+    <div class="pages-grid">
+      <div class="page-preview">
+        <p class="page-type">Morning Prompt — Day 1</p>
+        <h3>Awareness &amp; Grounding</h3>
+        <div class="prompt-sample">
+          <p>Before the day asks anything of you — what do you already notice about how you feel?</p>
+        </div>
+        <div class="lines">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="page-preview">
+        <p class="page-type">Evening Prompt — Day 1</p>
+        <h3>Awareness &amp; Grounding</h3>
+        <div class="prompt-sample">
+          <p>What was one moment today that asked for your full attention? What made it feel real?</p>
+        </div>
+        <div class="lines">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="page-preview">
+        <p class="page-type">Weekly Reflection</p>
+        <h3>Closing the week</h3>
+        <div class="prompt-sample">
+          <p>Looking back — not to judge, but to see clearly — what would you like to carry forward?</p>
+        </div>
+        <div class="lines">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEMES -->
+  <section class="theme-detail">
+    <p class="section-label">Seven themes</p>
+    <h2>A journal that<br><em>moves</em> with you.</h2>
+    <p>Rather than a linear program, the journal follows seven emotional themes — cycling gently across the 30 days to create depth and variety without monotony.</p>
+    <div class="themes-list">
+      <div class="theme-item">
+        <span class="theme-num-big">I</span>
+        <div class="theme-name"><p class="icon">🌱</p><h4>Awareness &amp; Grounding</h4></div>
+        <p class="theme-desc">Building the fundamental skill of noticing — what's present, what feels alive, what is asking for your attention.</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">II</span>
+        <div class="theme-name"><p class="icon">✨</p><h4>Curiosity &amp; Spark</h4></div>
+        <p class="theme-desc">Following what genuinely interests you — not what you think should interest you. Where is your energy right now?</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">III</span>
+        <div class="theme-name"><p class="icon">🌸</p><h4>Softness &amp; Self-Compassion</h4></div>
+        <p class="theme-desc">Turning toward difficulty without turning it into criticism. Being with yourself the way you'd be with someone you care about.</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">IV</span>
+        <div class="theme-name"><p class="icon">🌤</p><h4>Perspective &amp; Pause</h4></div>
+        <p class="theme-desc">Stepping back from the noise. Seeing the same situations from a slightly wider angle.</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">V</span>
+        <div class="theme-name"><p class="icon">🤝</p><h4>Connection &amp; Belonging</h4></div>
+        <p class="theme-desc">Reflecting on your relationships — with people, with places, and with yourself.</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">VI</span>
+        <div class="theme-name"><p class="icon">🔆</p><h4>Light &amp; Lens</h4></div>
+        <p class="theme-desc">Finding the small moments of brightness. What has been good, even quietly?</p>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num-big">VII</span>
+        <div class="theme-name"><p class="icon">🌊</p><h4>Closure &amp; Continuity</h4></div>
+        <p class="theme-desc">Gently closing loops. Acknowledging what's done and carrying forward what matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOT THIS -->
+  <section class="not-this">
+    <div class="not-this-grid">
+      <div>
+        <p class="section-label">What this journal is not</p>
+        <h2>We want to be<br><em>honest</em> with you.</h2>
+        <p>The Intentions Journal is a structured reflection tool. It is not therapy, not a transformation guarantee, and not a productivity system. Outcomes vary. Context matters.</p>
+        <p style="margin-top: 1.25rem;">What it is: a quiet, consistent practice of turning toward yourself. That's enough.</p>
+      </div>
+      <div class="two-col">
+        <div class="col-block">
+          <h5>This journal offers</h5>
+          <ul>
+            <li>Structured reflection</li>
+            <li>Emotional clarity</li>
+            <li>A consistent practice</li>
+            <li>Honest self-inquiry</li>
+            <li>Spacious prompts</li>
+            <li>Realistic agency</li>
+          </ul>
+        </div>
+        <div class="col-block">
+          <h5>This journal does not promise</h5>
+          <ul>
+            <li>Healing or therapy</li>
+            <li>Guaranteed transformation</li>
+            <li>Productivity gains</li>
+            <li>Fixed outcomes</li>
+            <li>Control of your life</li>
+            <li>Permanent change</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="shop" id="shop">
+    <p class="section-label" style="justify-content: center;">First collection</p>
+    <span class="coming-soon-badge">Coming Soon</span>
+    <h2>Be the first<br>to <em>hold it.</em></h2>
+    <p>The first print run of The Intentions Journal is in development. Join the list — no noise, just the quiet news when it's ready.</p>
+    <form class="shop-email-form" onsubmit="return false;">
+      <input type="email" placeholder="Your email address" />
+      <button type="submit">Notify me</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Press &amp; Fold</span>
+        <p>Analog tools for a more intentional life. Crafted with care. Designed with intention.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="journal.html">The Journal</a></li>
+          <li><a href="#">Morning Cards</a></li>
+          <li><a href="#">Greeting Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="philosophy.html">Philosophy</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="mailto:info@pressandfold.studio">Email us</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Press &amp; Fold. All rights reserved.</p>
+      <a href="mailto:info@pressandfold.studio">info@pressandfold.studio</a>
+    </div>
+  </footer>
+
+</body>
+</html>
