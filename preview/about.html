@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -24,25 +25,6 @@
     }
     html { scroll-behavior: smooth; }
     body { font-family: var(--serif); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; background: rgba(253,250,247,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-    .nav-toggle { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-toggle span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.25s, opacity 0.25s; }
-    nav.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    nav.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
-    nav.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-    .nav-links { display: flex; flex-direction: column; list-style: none; width: 100%; overflow: hidden; max-height: 0; opacity: 0; padding: 0; margin-top: 0; border-top: 1px solid transparent; pointer-events: none; transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease, margin-top 0.4s ease, border-color 0.35s ease; }
-    nav.nav-open .nav-links { max-height: 320px; opacity: 1; padding: 1rem 0 1.5rem; margin-top: 1rem; border-top-color: var(--border); pointer-events: auto; }
-    .nav-links a { display: block; font-family: var(--sans); font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .nav-links li:last-child a { border-bottom: none; }
-    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
-    @media (min-width: 768px) {
-      nav { flex-wrap: nowrap; padding: 1.25rem 3rem; }
-      .nav-toggle { display: none; }
-      .nav-links { flex-direction: row; width: auto; gap: 2.5rem; max-height: none; opacity: 1; padding: 0; border-top: none; margin-top: 0; pointer-events: auto; overflow: visible; transition: none; }
-      .nav-links a { display: inline; padding: 0; border-bottom: none; font-size: 0.75rem; }
-    }
 
     /* HERO */
     .about-hero {
@@ -147,34 +129,7 @@
 <body>
 
   <div id="nav-placeholder"></div>
-  <script>
-    fetch("nav.html").then(r => r.text()).then(html => {
-      document.getElementById("nav-placeholder").outerHTML = html;
-      document.querySelectorAll(".nav-links a").forEach(a => {
-        if (a.getAttribute("href") === window.location.pathname.split("/").pop()) {
-          a.classList.add("active");
-        }
-      });
-      const toggle = document.querySelector('.nav-toggle');
-      const nav = document.querySelector('nav');
-      if (toggle && nav) {
-        toggle.addEventListener('click', () => {
-          const open = nav.classList.toggle('nav-open');
-          toggle.setAttribute('aria-expanded', String(open));
-        });
-        document.querySelectorAll('.nav-links a').forEach(link => {
-          link.addEventListener('click', e => {
-            if (!nav.classList.contains('nav-open')) return;
-            e.preventDefault();
-            const href = link.getAttribute('href');
-            nav.classList.remove('nav-open');
-            toggle.setAttribute('aria-expanded', 'false');
-            setTimeout(() => { window.location.href = href; }, 350);
-          });
-        });
-      }
-    });
-  </script>
+  <script src="nav.js"></script>
 
   <!-- HERO -->
   <div class="about-hero">
