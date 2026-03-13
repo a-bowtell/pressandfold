@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Preview — Press & Fold</title>
+  <link rel="icon" type="image/png" href="press-and-fold-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F3EE;
+      --warm-white: #FDFAF7;
+      --ink: #2C2820;
+      --ink-light: #5A524A;
+      --ink-faint: #9A8F82;
+      --sage: #8A9E8C;
+      --border: rgba(44,40,32,0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--serif);
+      background: var(--warm-white);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gate {
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .gate-logo {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+      display: block;
+    }
+
+    .gate h1 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .gate p {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--cream);
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--ink-faint);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--ink);
+      color: var(--warm-white);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--ink-light);
+    }
+
+    .error {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: #b94a3a;
+      letter-spacing: 0.04em;
+      margin-top: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="gate">
+    <span class="gate-logo">Press &amp; Fold</span>
+    <h1>Site Preview</h1>
+    <p>Enter the password to continue</p>
+    <form id="form">
+      <input type="password" id="pwd" placeholder="Password" autocomplete="current-password" />
+      <button type="submit">Enter</button>
+    </form>
+    <p class="error" id="err">Incorrect password. Please try again.</p>
+  </div>
+
+  <script>
+    document.getElementById('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (document.getElementById('pwd').value === 'Here!wego92') {
+        sessionStorage.setItem('pf_auth', '1');
+        location.replace('index.html');
+      } else {
+        document.getElementById('err').style.display = 'block';
+        document.getElementById('pwd').value = '';
+        document.getElementById('pwd').focus();
+      }
+    });
+  </script>
+</body>
+</html>
